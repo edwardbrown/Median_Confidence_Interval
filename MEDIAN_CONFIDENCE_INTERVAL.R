@@ -10,18 +10,17 @@ GetCI <- function(v, clevel){
   v <- sort(v)
   n <- length(v)
   cl <- 0
-  prod <- (n+1)*(0.50)
-  Lstar <- floor(prod - 1)
-  Ustar <- floor(prod + 1)
+  prod1 <- floor((n)*(0.50))
+  prod2 <- ceiling((n)*(0.50))
+  Lstar <- floor(prod1 - 1)
+  Ustar <- floor(prod2 + 1)
   
   while (cl < clevel ) { 
 
-  l <- pbinom(Lstar,length(v),prob=0.5)
-  u <- pbinom(Ustar,length(v),prob=0.5)
-  cl <- u - l
+    cl <- sum(dbinom(Lstar:Ustar,length(v),prob=0.5))
   
-  Lstar <- Lstar - 1
-  Ustar <- Ustar + 1
+    Lstar <- Lstar - 1
+    Ustar <- Ustar + 1
   
   }
 
